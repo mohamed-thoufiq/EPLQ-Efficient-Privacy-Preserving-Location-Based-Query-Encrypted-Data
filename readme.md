@@ -144,9 +144,3 @@ EPLQ-Project/
 **Mohamed Thoufiq** – Full-stack development, UI/UX design, Firebase integration.
 
 ---
-
-
-
-```
-
----

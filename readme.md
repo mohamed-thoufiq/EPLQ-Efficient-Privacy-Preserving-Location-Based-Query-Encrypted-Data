@@ -1,6 +1,3 @@
-Here’s an updated and polished **README.md** for your EPLQ project reflecting the latest changes, including the **intro page, form-based login/signup, POI search, and deployed link**:
-
-```markdown
 # EPLQ Mobile Shield – Efficient Privacy-Preserving Location Query
 
 ## Project Overview

@@ -70,7 +70,7 @@ EPLQ-Project/
    firebase login
    firebase init
    firebase deploy
-````
+``
 
 ---
 

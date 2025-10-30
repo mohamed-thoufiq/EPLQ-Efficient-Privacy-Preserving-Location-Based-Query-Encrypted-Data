@@ -1,131 +1,155 @@
-## EPLQ Mobile Shield – Efficient Privacy-Preserving Location Query
+Here’s an updated and polished **README.md** for your EPLQ project reflecting the latest changes, including the **intro page, form-based login/signup, POI search, and deployed link**:
+
+```markdown
+# EPLQ Mobile Shield – Efficient Privacy-Preserving Location Query
+
 ## Project Overview
 
-EPLQ Mobile Shield is a web-based application that provides privacy-preserving location-based queries. Users can search for points of interest (POIs) near them without revealing their exact location, ensuring complete privacy and security.
+EPLQ Mobile Shield is a web-based application that provides **privacy-preserving location-based queries**. Users can search for points of interest (POIs) near them without revealing their exact location, ensuring complete privacy and security.
 
-The platform supports role-based access:
+The platform supports **role-based access**:
 
-User – Can search POIs and view results anonymously.
+- **User** – Can search POIs and view results anonymously.
+- **Admin** – Can manage POIs, view analytics, and access enhanced dashboard features.
 
-Admin – Can manage POIs, view analytics, and access enhanced dashboard features.
+The system leverages **Firebase Authentication**, **local storage**, and cloud-powered **POI management**. The project now also includes an **intro landing page** with a background image and smooth animations.
 
-The system leverages Firebase Authentication, local storage, and cloud-powered POI management.
+**Live Demo:** [EPLQ Project Live](https://epql-project.web.app/)
+
+---
 
 ## Features
 
-Secure Authentication: Email/Password signup and login with role-based redirection.
+- **Landing Page:** Welcome page with background image, animations, and Sign Up / Login buttons.
+- **Secure Authentication:** Email/Password signup and login with role-based redirection.
+- **Privacy-Preserving POI Search:** Search for popular POIs near you without exposing your real location.
+- **Enter Key Support:** Login and signup forms support the Enter key for improved UX.
+- **End-to-End Encryption Simulation:** Demonstrates secure query handling.
+- **Role-Based Dashboard:** Users see their results; Admins see analytics and additional data.
+- **Analytics for Admins:** Charts powered by Chart.js to visualize POI data.
+- **Responsive Design:** Fully mobile-friendly with animations and hover effects.
+- **Interactive Cards:** POI results displayed in animated, readable cards with light backgrounds.
 
-Privacy-Preserving Search: Search for POIs without exposing real location data.
-
-End-to-End Encryption Simulation: Demonstrates secure query handling.
-
-Role-Based Dashboard: Users see their results; Admins see analytics.
-
-Analytics for Admins: Visual charts for POI data.
-
-Responsive Design: Fully mobile-friendly with animations and hover effects.
+---
 
 ## Folder Structure
+
+```
+
 EPLQ-Project/
 │
-├─ index.html          → Optional homepage or redirect to login
-├─ login.html          → Login page
-├─ signup.html         → Signup page
-├─ dashboard.html      → Role-based dashboard
-├─ style.css           → CSS with animations and responsive design
+├─ index.html          → Landing page with Sign Up / Login buttons
+├─ login.html          → Login page (form with Enter key support)
+├─ signup.html         → Signup page (form with Enter key support)
+├─ dashboard.html      → Role-based dashboard (POI search + admin analytics)
+├─ style.css           → CSS with animations, responsive design, and POI card styles
 ├─ auth.js             → Firebase authentication logic
-├─ dashboard.js        → Dashboard functionality (POI search + analytics)
+├─ dashboard.js        → Dashboard functionality (POI search, analytics, simulated POI data)
+├─ 404.html            → Custom “Page Not Found” page for invalid routes
 └─ README.md           → This file
+
+````
+
+---
 
 ## Firebase Setup
 
-Create a Firebase Project
+1. **Create a Firebase Project**
+   - Go to [Firebase Console](https://console.firebase.google.com/)
+   - Click **Add Project** and follow the prompts.
 
-Go to Firebase Console
-.
+2. **Add Web App**
+   - Copy the Firebase config and replace placeholders in your project.
 
-Click Add project and follow the prompts.
+3. **Enable Authentication**
+   - Navigate to **Authentication → Sign-in methods → Email/Password → Enable**.
 
-Add Web App
+4. **Optional: Firestore**
+   - Use Firestore to store POIs and user roles for scalable production deployment.
 
-Copy the Firebase config and replace placeholders in firebase-config.js.
+5. **Hosting (Optional)**
+   ```bash
+   npm install -g firebase-tools
+   firebase login
+   firebase init
+   firebase deploy
+````
 
-Enable Authentication
-
-Navigate to Authentication → Sign-in methods → Email/Password → Enable.
-
-Use Firestore to store POIs and user roles if scaling beyond localStorage.
-
-Hosting (Optional)
-
-Install Firebase CLI: npm install -g firebase-tools
-
-Initialize hosting: firebase init
-
-Deploy: firebase deploy
+---
 
 ## How to Run Locally
 
-Clone or download the repository.
+1. Clone or download the repository.
+2. Ensure all files are in the same directory.
+3. Serve locally using Live Server:
 
-Ensure all files are in the same directory.
+   ```bash
+   npx live-server
+   ```
+4. Open `index.html` to start the application.
+5. Sign up or login and navigate to the dashboard.
 
-Serve locally using Live Server:
+---
 
-npx live-server
+## Usage
 
+### Sign Up
 
-Open login.html to start the application.
+* Choose a role (User or Admin).
+* Fill in email and password.
 
-Signup or login and navigate to the dashboard.
+### Login
 
-Usage
+* Enter credentials and press **Enter** or click **Login**.
 
-Sign Up
+### Dashboard
 
-Choose a role (User or Admin).
+* **Users:** Search POIs and view results anonymously.
+* **Admins:** View analytics charts, manage POIs, and explore enhanced dashboard features.
 
-Login
+### Logout
 
-Enter your credentials.
+* Click the logout button to return to the login/landing page.
 
-Dashboard
-
-Users can search POIs.
-
-Admins see analytics charts and additional info.
-
-Logout
-
-Click the logout button to return to login.
+---
 
 ## Technologies Used
 
-HTML5, CSS3, JavaScript
+* HTML5, CSS3, JavaScript
+* Firebase v9 (Auth & Hosting)
+* Chart.js for Admin analytics
+* Responsive design with CSS animations
+* Privacy-preserving location simulation
 
-Firebase v9 (Auth & Hosting)
-
-Chart.js for Admin analytics
-
-Responsive design with CSS animations
+---
 
 ## Notes
 
-Currently, POI data is simulated in dashboard.js.
+* POI data is currently simulated in `dashboard.js`.
+* Role-based access is managed via localStorage; for production, use Firestore.
+* Animations include hover effects on cards and smooth button transitions.
+* Enter key support is added for login and signup forms.
 
-Role-based access is managed via localStorage; for production, use Firestore.
-
-Animations include hover effects on cards and smooth transitions for buttons.
+---
 
 ## Future Enhancements
 
-Full integration with Firestore for real-time POI storage.
+* Full integration with Firestore for real-time POI storage.
+* Location-based map view with privacy-preserving queries.
+* Encrypted data storage using actual encryption algorithms.
+* Mobile app version with React Native or Flutter.
+* More visually appealing landing page animations.
 
-Location-based map view with privacy-preserving queries.
+---
 
-Encrypted data storage using actual encryption algorithms.
+## Author
 
-Mobile app version with React Native or Flutter.
+**Mohamed Thoufiq** – Full-stack development, UI/UX design, Firebase integration.
 
-## Author : Mohamed Thoufiq 
- Full-stack development, UI/UX design, Firebase integration.
+---
+
+
+
+```
+
+---

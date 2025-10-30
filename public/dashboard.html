@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EPLQ Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  
+  <script type="module" src="dashboard.js"></script>
+
+  <style>
+.poi-card {
+  border: none;
+  border-radius: 12px;
+  padding: 15px;
+  margin: 15px;
+  width: 220px;
+  display: inline-block;
+  vertical-align: top;
+  background: linear-gradient(145deg, #ffffff, #f0f0f0);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.poi-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.poi-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.poi-card p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #666;
+}
+
+
+.poi-card p.type {
+  font-weight: bold;
+  color: #007bff;
+}
+
+
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 30px 0;
+  gap: 20px;
+}
+
+.hero-content {
+  flex: 1 1 45%;
+  max-width: 600px;
+}
+
+.hero-content h1 {
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #222;
+}
+
+.hero-content p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.hero-content input[type="text"] {
+  width: 70%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  font-size: 14px;
+}
+
+.hero-content button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.hero-content button:hover {
+  background-color: #0056b3;
+}
+
+.hero-image img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+
+.features-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">EPLQ Dashboard</div>
+    <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome, <span id="userRole">User</span>!</h1>
+      <p>Your role has been successfully verified. Explore privacy-preserving location features.</p>
+      <input type="text" id="poiQuery" placeholder="Search POIs..." />
+      <button id="searchBtn" class="btn btn-primary">Search</button>
+    </div>
+    <div class="hero-image">
+      <img
+        src="https://t4.ftcdn.net/jpg/06/27/95/33/240_F_627953356_drbifdIBZwzvtWV1WpkL0OIOxoO73tGV.jpg"
+        alt="Secure location"
+      />
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="features-grid" id="poiResults"></div>
+  </section>
+
+  <section class="analytics-section" id="analytics" style="display: none;">
+    <h2>Admin Analytics</h2>
+    <canvas id="chart" width="400" height="200"></canvas>
+  </section>
+
+  <!-- Mock POI Search Script -->
+  <script>
+    
+    const poiData = [
+      { name: "Marina Beach", type: "beach", vicinity: "Marina Beach Rd, Chennai" },
+      { name: "Kapaleeshwarar Temple", type: "temple", vicinity: "Mylapore, Chennai" },
+      { name: "Express Avenue Mall", type: "shopping mall", vicinity: "Royapettah, Chennai" },
+      { name: "Dakshinayanam Cafe", type: "cafe", vicinity: "Nungambakkam, Chennai" },
+      { name: "Murugan Idli Shop", type: "restaurant", vicinity: "T. Nagar, Chennai" },
+      { name: "VGP Golden Beach", type: "amusement park", vicinity: "East Coast Rd, Chennai" },
+      { name: "Guindy National Park", type: "park", vicinity: "Guindy, Chennai" },
+      { name: "Chennai Central Railway Station", type: "transport", vicinity: "Park Town, Chennai" },
+      { name: "Anna Centenary Library", type: "library", vicinity: "Kotturpuram, Chennai" },
+      { name: "Sowcarpet Market", type: "market", vicinity: "Sowcarpet, Chennai" }
+    ];
+
+    const poiResultsContainer = document.getElementById("poiResults");
+    const searchInput = document.getElementById("poiQuery");
+    const searchBtn = document.getElementById("searchBtn");
+
+    
+    function displayPOIs(data) {
+      poiResultsContainer.innerHTML = "";
+      if (data.length === 0) {
+        poiResultsContainer.innerHTML = "<p>No results found.</p>";
+        return;
+      }
+      data.forEach(poi => {
+        const card = document.createElement("div");
+        card.className = "poi-card";
+        card.innerHTML = `<h3>${poi.name}</h3><p>Type: ${poi.type}</p><p>${poi.vicinity}</p>`;
+        poiResultsContainer.appendChild(card);
+      });
+    }
+
+    
+    displayPOIs(poiData);
+
+    
+    function searchPOIs() {
+      const query = searchInput.value.toLowerCase();
+      const filtered = poiData.filter(poi =>
+        poi.name.toLowerCase().includes(query) ||
+        poi.type.toLowerCase().includes(query) ||
+        poi.vicinity.toLowerCase().includes(query)
+      );
+      displayPOIs(filtered);
+    }
+
+    searchBtn.addEventListener("click", searchPOIs);
+    searchInput.addEventListener("keyup", (e) => {
+      if (e.key === "Enter") searchPOIs();
+    });
+  </script>
+</body>
+</html>

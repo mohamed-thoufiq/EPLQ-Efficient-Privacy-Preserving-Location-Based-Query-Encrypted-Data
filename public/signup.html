@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up - EPLQ</title>
+  <link rel="stylesheet" href="style.css" />
+
+  
+  <script type="module" src="auth.js"></script>
+</head>
+
+<body>
+  <div class="auth-container">
+    <h2>Create Your EPLQ Account</h2>
+
+    <input type="text" id="signupName" placeholder="Full Name" />
+    <input type="email" id="signupEmail" placeholder="Email" />
+    <input type="password" id="signupPassword" placeholder="Password" />
+
+    <select id="signupRole">
+      <option value="User">User</option>
+      <option value="Admin">Admin</option>
+    </select>
+
+    <button id="signupBtn" class="btn btn-primary">Sign Up</button>
+    <p>Already have an account? <a href="login.html">Login</a></p>
+  </div>
+
+  
+  <script type="module">
+    import { signupUser } from "./auth.js";
+
+    const nameField = document.getElementById("signupName");
+    const emailField = document.getElementById("signupEmail");
+    const passField = document.getElementById("signupPassword");
+    const roleField = document.getElementById("signupRole");
+    const btn = document.getElementById("signupBtn");
+
+    btn.addEventListener("click", async () => {
+      const name = nameField.value.trim();
+      const email = emailField.value.trim();
+      const password = passField.value.trim();
+      const role = roleField.value;
+
+      if (!name || !email || !password) {
+        alert("⚠️ Please fill in all fields!");
+        return;
+      }
+
+      try {
+        await signupUser(email, password, role);
+      } catch (err) {
+        console.error("Signup error:", err);
+        alert("Signup failed. Please check console for details.");
+      }
+    });
+  </script>
+</body>
+</html>
